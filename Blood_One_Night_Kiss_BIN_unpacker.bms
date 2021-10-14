@@ -1,0 +1,27 @@
+# Blood+: One Night Kiss SLPS 25677 - BIN unpacker by Bigmanjapan
+# script for QuickBMS 0.11 
+# http://quickbms.aluigi.org
+
+get DUMMY long
+get DUMMY long
+get FILES long
+get DATA_OFF long
+
+for i = 0 < FILES
+    get NAME string
+    savepos NAME_TMP
+    putarray 0 i NAME
+    goto NAME_TMP
+next i
+
+goto DATA_OFF
+
+for i = 0 < FILES
+    get OFFSET long
+    math OFFSET * 0x800
+    get SIZE long
+    savepos OFFSET_TMP
+    getarray NAME 0 i 
+    log NAME OFFSET SIZE
+    goto OFFSET_TMP
+next i
